@@ -172,7 +172,7 @@ button {
 }
 button:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(33, 150, 243, 0.3); }
 
-/* --- OPTIMALISASI TATA LETAK UTAMA GAME --- */
+/* Tata Letak Utama Game */
 .game-container {
   max-width: 1250px;
   margin: auto;
@@ -184,13 +184,13 @@ button:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(33, 150,
   display: grid;
   grid-template-columns: 260px 1fr;
   gap: 20px;
-  align-items: start; /* PERBAIKAN LAPTOP: Mencegah referensi kiri ikut molor/geser ke bawah */
+  align-items: start;
 }
 
 .reference {
   background: white; padding: 18px; border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-  position: sticky; top: 15px; /* Tambahan: Referensi tetap aman di posisinya */
+  position: sticky; top: 15px;
 }
 
 .reference img {
@@ -240,10 +240,10 @@ button:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(33, 150,
 }
 .modal-content { background: white; padding: 35px; border-radius: 24px; text-align: center; max-width: 460px; width: 90%; }
 
-/* --- PERBAIKAN RESPONSIVE LAYAR HP --- */
+/* Responsive HP */
 @media (max-width: 920px) and (orientation: landscape) {
   .game-layout {
-    grid-template-columns: 190px 1fr; /* Mempersempit kolom referensi samping agar papan membesar */
+    grid-template-columns: 190px 1fr;
     gap: 12px;
   }
   .reference { padding: 10px; }
@@ -356,12 +356,14 @@ button:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(33, 150,
 </div>
 
 <script>
+// Ditambahkan link raw GitHub baru untuk tema Dunia Dongeng dan Kastil
 const THEMES = {
   dinosaurus: { name: "Dinosaurus", img: "https://raw.githubusercontent.com/malikagames/Puzzle-Games/main/Dinosaurus.jpeg" },
   laut: { name: "Kehidupan Laut", img: "https://raw.githubusercontent.com/malikagames/Puzzle-Games/main/Kehidupan%20Laut.jpeg" },
   peternakan: { name: "Peternakan", img: "https://raw.githubusercontent.com/malikagames/Puzzle-Games/main/Peternakan.jpeg" },
   sabana: { name: "Sabana", img: "https://raw.githubusercontent.com/malikagames/Puzzle-Games/main/Sabana.jpeg" },
-  taman: { name: "Taman", img: "https://raw.githubusercontent.com/malikagames/Puzzle-Games/main/Taman.jpeg" }
+  taman: { name: "Taman", img: "https://raw.githubusercontent.com/malikagames/Puzzle-Games/main/Taman.jpeg" },
+  dongeng: { name: "Dunia Dongeng", img: "https://raw.githubusercontent.com/malikagames/Puzzle-Games/main/Dunia%20Dongeng%20dan%20Kastil.jpeg" }
 };
 
 let selectedCharacter = null; let selectedCharIcon = null; let currentThemeKey = null;
@@ -417,7 +419,6 @@ function selectCharacter(name, icon) {
   event.currentTarget.classList.add('selected');
   document.getElementById('btn-next-theme').disabled = false;
   
-  // SOLUSI BUG 1: Data emoji dimasukkan ke wadah icon, nama murni dimasukkan ke wadah name secara terpisah
   document.getElementById('display-char-icon').innerText = icon;
   document.getElementById('display-char-name').innerText = name;
 }
@@ -467,12 +468,10 @@ function saveBest(){
 
 function startTimer(){ clearInterval(interval); timer = 0; interval = setInterval(() => { timer++; document.getElementById('timer').innerText = formatTime(timer); }, 1000); }
 
-// SOLUSI BUG 2: Algoritma pembesaran ukuran kepingan papan secara maksimal untuk HP landscape
 function resizeBoard() {
   const board = document.getElementById('board'); if (!board) return;
   
   let isLandscape = window.innerWidth > window.innerHeight;
-  // Mempersempit area potong agar kepingan puzzle di HP Landscape meluas maksimal
   let maxWidth = window.innerWidth - (isLandscape ? 240 : 60); 
   let maxHeight = window.innerHeight - (isLandscape ? 110 : 320); 
   
@@ -577,7 +576,7 @@ function backToThemeAfterPreview() {
   playSound('click'); const totalThemesCount = Object.keys(THEMES).length; const totalPossibleCombos = totalThemesCount * 3; 
   if (completedCombinations.length === totalPossibleCombos) {
     playSound('all_clear');
-    document.getElementById('modal-message').innerHTML = `Selamat! Semua 5 tema dengan masing-masing 3 tingkat kesulitan telah berhasil kamu selesaikan seluruhnya dengan sempurna bersama <b>${selectedCharIcon} ${selectedCharacter}</b>! 🏆🎉`;
+    document.getElementById('modal-message').innerHTML = `Selamat! Semua 6 tema dengan masing-masing 3 tingkat kesulitan telah berhasil kamu selesaikan seluruhnya dengan sempurna bersama <b>${selectedCharIcon} ${selectedCharacter}</b>! 🏆🎉`;
     document.getElementById('game-modal').style.display = 'flex';
   } else { goToPage('page-theme'); }
 }
